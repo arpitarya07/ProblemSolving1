@@ -63,6 +63,22 @@ public class BinaryTreeNode {
 			System.out.println(root.data);
 		}
 	}
+	
+	public static boolean sameBinaryTree(BinaryTreeNode root1, BinaryTreeNode root2) {
+		if (root1 == null && root2 == null) {
+			return true;
+		}
+		else if (root1 == null || root2 == null) {
+			return false;
+		}
+		
+		if (root1.data == root2.data) {
+			boolean leftTree = sameBinaryTree(root1.left, root2.left);
+			boolean rightTree = sameBinaryTree(root1.right, root2.right);
+			return leftTree && rightTree;
+		}
+		return false;
+	}
 		
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -74,6 +90,12 @@ public class BinaryTreeNode {
 		root.inOrderTraversal(root);
 		System.out.println();
 		root.postOrderTraversal(root);
+		
+		
+		BinaryTreeNode root2 = generateTree();
+		root2.right.right.data = "1000";
+		boolean sameBinaryTree = sameBinaryTree(root, root2);
+		System.out.println(sameBinaryTree);
 		
 		// System.out.println(this.data);
 		

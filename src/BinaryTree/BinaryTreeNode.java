@@ -8,6 +8,8 @@
 
 package BinaryTree;
 
+import java.lang.Math;
+
 public class BinaryTreeNode {
 
 	String data;
@@ -79,6 +81,34 @@ public class BinaryTreeNode {
 		}
 		return false;
 	}
+	
+	/*
+		5
+10				15
+20		25		30		35
+40
+
+*/
+	
+	public static int sizeOfBinaryTree(BinaryTreeNode root) {
+		if (root == null) {
+			return 0;
+		}
+		
+		int count1 = sizeOfBinaryTree(root.left);
+		int count2 = sizeOfBinaryTree(root.right);
+		return (count1+count2+1);		
+	}
+	
+	public static int heightOfBinaryTree(BinaryTreeNode root) {
+		if (root == null) {
+			return 0;
+		}
+		
+		int count1 = heightOfBinaryTree(root.left);
+		int count2 = heightOfBinaryTree(root.right);
+		return (Math.max(count1, count2) + 1);		
+	}
 		
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -96,6 +126,12 @@ public class BinaryTreeNode {
 		root2.right.right.data = "1000";
 		boolean sameBinaryTree = sameBinaryTree(root, root2);
 		System.out.println(sameBinaryTree);
+		
+		int sizeOfBinaryTree = sizeOfBinaryTree(root);
+		System.out.println(sizeOfBinaryTree);
+
+		int heightOfBinaryTree = heightOfBinaryTree(root);
+		System.out.println(heightOfBinaryTree);
 		
 		// System.out.println(this.data);
 		

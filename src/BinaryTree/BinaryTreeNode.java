@@ -107,7 +107,35 @@ public class BinaryTreeNode {
 		
 		int count1 = heightOfBinaryTree(root.left);
 		int count2 = heightOfBinaryTree(root.right);
-		return (Math.max(count1, count2) + 1);		
+		return (Math.max(count1, count2) + 1);	
+	}
+	
+	public static boolean rootToLeafSumBT(BinaryTreeNode root, int sum) {
+		
+		if (root == null) {
+			return false;
+		}
+		
+		int rootData = Integer.parseInt(root.data);
+		
+		if (root.left == null && root.right == null) {
+			if (rootData == sum) {
+				System.out.println(rootData);
+				return true;
+			}
+				return false;
+		}
+		
+		sum = sum - rootData;
+		boolean left = rootToLeafSumBT(root.left, sum);
+		boolean right = rootToLeafSumBT(root.right, sum);
+		
+		if (left || right) {
+			System.out.println(rootData);
+			return true;
+		}
+			return false;
+		
 	}
 		
 	public static void main(String[] args) {
@@ -132,7 +160,9 @@ public class BinaryTreeNode {
 
 		int heightOfBinaryTree = heightOfBinaryTree(root);
 		System.out.println(heightOfBinaryTree);
-		
+
+		boolean rootToLeafSumBT = rootToLeafSumBT(root, 40);
+		System.out.println(rootToLeafSumBT);
 		// System.out.println(this.data);
 		
 	}

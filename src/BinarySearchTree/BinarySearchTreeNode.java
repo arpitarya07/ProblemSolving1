@@ -138,6 +138,24 @@ public class BinarySearchTreeNode {
 		
 	}
 	
+	public static boolean checkBST(BinarySearchTreeNode root, int l, int u) {
+		if (root == null) {
+			return true;
+		}
+		
+		if (root.left == null && root.right == null) {
+			return true;
+		}
+		
+		if (root.data < l && root.data > u) {
+			return false;
+		}
+		
+		boolean leftResult = checkBST(root.left, l, root.data);
+		boolean rightResult = checkBST(root.right, root.data, u);
+		return (leftResult && rightResult);
+	}
+	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -153,6 +171,8 @@ public class BinarySearchTreeNode {
 		
 		printBST(bstInsertionIter,0);
 		
+		boolean checkBST = checkBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+		System.out.println(checkBST);
 	}
 
 }

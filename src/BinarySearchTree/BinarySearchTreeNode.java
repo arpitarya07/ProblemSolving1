@@ -7,6 +7,10 @@
 
 package BinarySearchTree;
 
+import java.util.Queue;
+import java.util.LinkedList;
+import java.util.Stack;
+
 public class BinarySearchTreeNode {
 	
 	int data;
@@ -156,6 +160,51 @@ public class BinarySearchTreeNode {
 		return (leftResult && rightResult);
 	}
 	
+	public static void printLevelOrderTraversal(BinarySearchTreeNode root) {
+		Queue<BinarySearchTreeNode> q = new LinkedList<BinarySearchTreeNode>();
+		q.add(root);
+		
+		while(!q.isEmpty()) {
+			System.out.println(q.peek().data);
+			root = q.peek();
+			if(root.left != null) {
+				q.add(root.left);
+			}
+			if(root.right != null) {
+				q.add(root.right);
+			}
+			q.remove();
+		}
+	}
+	
+	public static void iterativePostOrderTraversal(BinarySearchTreeNode root) {
+		Stack<BinarySearchTreeNode> st1 = new Stack<BinarySearchTreeNode>();
+		Stack<BinarySearchTreeNode> st2 = new Stack<BinarySearchTreeNode>();
+		
+		if (root == null) {
+			System.out.println("Root is null");
+		}
+		
+		st1.push(root);
+		
+		while(!st1.isEmpty()) {
+			root = st1.pop();
+			st2.push(root);
+			if (root.left != null) {
+				st1.add(root.left);
+			}
+			
+			if (root.right != null) {
+				st1.add(root.right);
+			}			
+		}
+		
+		while(!st2.isEmpty()) {
+			System.out.println(st2.peek().data);
+			st2.pop();			
+		}
+	}
+	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -169,10 +218,14 @@ public class BinarySearchTreeNode {
 		
 		BinarySearchTreeNode bstInsertionIter = insertNodeIteration(root, 25);
 		
-		printBST(bstInsertionIter,0);
+		printBST(root,0);
 		
 		boolean checkBST = checkBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
 		System.out.println(checkBST);
+		
+		printLevelOrderTraversal(root);
+		System.out.println("================================");
+		iterativePostOrderTraversal(root);
 	}
 
 }

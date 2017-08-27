@@ -177,6 +177,39 @@ public class BinarySearchTreeNode {
 		}
 	}
 	
+	public static void LevelOrderPrinting(BinarySearchTreeNode root) {
+		Queue<BinarySearchTreeNode> q = new LinkedList<BinarySearchTreeNode>();
+		
+		if(root == null) {
+			System.out.println("Root is null");
+			return;
+		}
+		
+		q.add(root);
+		q.add(null);
+		
+		while(!q.isEmpty()) {
+			BinarySearchTreeNode node = q.remove();
+			
+			if(node == null && !q.isEmpty()) {
+				q.add(null);
+				System.out.println();
+			}
+			else if (node != null && !q.isEmpty()) {
+				System.out.print(node.data+" ");
+			
+			//Check left anf right
+			if(node.left != null) {
+				q.add(node.left);
+			}
+			if(node.right != null) {
+				q.add(node.right);
+			}
+			}
+		}
+	}
+	
+	
 	public static void iterativePostOrderTraversal(BinarySearchTreeNode root) {
 		Stack<BinarySearchTreeNode> st1 = new Stack<BinarySearchTreeNode>();
 		Stack<BinarySearchTreeNode> st2 = new Stack<BinarySearchTreeNode>();
@@ -205,6 +238,53 @@ public class BinarySearchTreeNode {
 		}
 	}
 	
+	public static void iterativePreOrderTraversal(BinarySearchTreeNode root) {
+		Stack<BinarySearchTreeNode> st = new Stack<BinarySearchTreeNode>();
+		
+		
+		if (root == null) {
+			System.out.println("Root is null");
+		}
+		
+		st.push(root);
+		
+		while(!st.isEmpty()) {
+			root = st.pop();
+			System.out.println(root.data);
+			
+			if (root.right != null) {
+				st.add(root.right);
+			}
+			
+			if (root.left != null) {
+				st.add(root.left);
+			}			
+		}
+	}
+	
+	public static void iterativeInOrderTraversal(BinarySearchTreeNode root) {
+		Stack<BinarySearchTreeNode> st = new Stack<BinarySearchTreeNode>();
+		
+		if (root == null) {
+			System.out.println("Root is null");
+		}
+		while (true) {
+			if (root != null) {
+				st.push(root);
+				root = root.left;
+			} 
+			else {
+				if (st.isEmpty()) {
+					break;
+				}
+				BinarySearchTreeNode temp = st.pop();
+				System.out.println(temp.data);
+				root = temp.right;
+			}
+		}
+	}
+		
+
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -226,6 +306,15 @@ public class BinarySearchTreeNode {
 		printLevelOrderTraversal(root);
 		System.out.println("================================");
 		iterativePostOrderTraversal(root);
+		System.out.println("================================");
+		System.out.println("Pre Order Traversal of Binary Search Tree:");
+		iterativePreOrderTraversal(root);
+		System.out.println("================================");
+		System.out.println("In Order Traversal of Binary Search Tree:");		
+		iterativeInOrderTraversal(root);
+		System.out.println("================================");
+		System.out.println("Level Order Printing of Binary Search Tree:");	
+		LevelOrderPrinting(root);
 	}
 
 }
